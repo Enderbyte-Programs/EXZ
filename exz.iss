@@ -2,18 +2,18 @@
 ; SEE THE DOCUMENTATION FOR DETAILS ON CREATING INNO SETUP SCRIPT FILES!
 
 #define MyAppName "EXZ"
-#define MyAppVersion "0.1"
+#define MyAppVersion "0.2"
 #define MyAppPublisher "Enderbyte Programs"
 #define MyAppURL "https://enderbyteprograms.weebly.com"
 #define MyAppExeName "exz.exe"
-#define MyAppAssocName "Zipped Executable File"
+#define MyAppAssocName "Zipped Application"
 #define MyAppAssocExt ".exz"
 #define MyAppAssocKey StringChange(MyAppAssocName, " ", "") + MyAppAssocExt
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application. Do not use the same AppId value in installers for other applications.
 ; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
-AppId={{8309E43B-747A-48E9-8425-37805E483734}
+AppId={{72AC391F-1D71-40A3-A33D-AB47F285D74E}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
 ;AppVerName={#MyAppName} {#MyAppVersion}
@@ -28,7 +28,8 @@ DisableProgramGroupPage=yes
 ;PrivilegesRequired=lowest
 PrivilegesRequiredOverridesAllowed=dialog
 OutputDir=C:\Python311\Scripts\EXZ\dist
-OutputBaseFilename=exz-0.1-setup
+OutputBaseFilename=exz-0.2-setup
+SetupIconFile=C:\Python311\Scripts\EXZ\exz.ico
 Compression=lzma
 SolidCompression=yes
 WizardStyle=modern
@@ -37,10 +38,11 @@ WizardStyle=modern
 Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
-Name: "reg"; Description: "Register program on PATH"; GroupDescription: "Registry"
+Name: "reg"; Description: "Add to PATH"; GroupDescription: "stuff"
 
 [Files]
-Source: "C:\Python311\Scripts\EXZ\dist\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Python311\Scripts\EXZ\dist\exz\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\Python311\Scripts\EXZ\dist\exz\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Registry]
@@ -53,3 +55,4 @@ Root: HKCU; Subkey: "Environment"; \
     ValueType: expandsz; ValueName: "Path"; ValueData: "{olddata};{app}"; Tasks: reg
 Root: HKLM; Subkey: "SYSTEM\CurrentControlSet\Control\Session Manager\Environment"; \
     ValueType: expandsz; ValueName: "Path"; ValueData: "{olddata};{app}"; Flags: noerror; Tasks: reg
+
